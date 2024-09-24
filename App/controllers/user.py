@@ -1,4 +1,4 @@
-from App.models import User
+from App.models import User, Student
 from App.database import db
 
 def create_user(username, password):
@@ -30,4 +30,9 @@ def update_user(id, username):
         db.session.add(user)
         return db.session.commit()
     return None
-    
+
+def create_student(name, email, year, program):
+    new_student = Student(name=name, email=email, year=year, program=program)
+    db.session.add(new_student)
+    db.session.commit()
+    return new_student   
