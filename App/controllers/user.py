@@ -39,3 +39,6 @@ def create_student(name, email, year, program):
 
 def get_student_by_name(name):
     return Student.query.filter(Student.name.like(f"%{name}%")).all()  
+
+def get_student_by_id(student_id):
+    return Student.query.get(student_id)
