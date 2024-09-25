@@ -5,7 +5,7 @@ from flask.cli import with_appcontext, AppGroup
 from App.database import db, get_migrate
 from App.models import User
 from App.main import create_app
-from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize, create_student )
+from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize, create_student, get_student_by_name )
 
 
 # This commands file allow you to create convenient CLI commands for testing controllers
@@ -60,8 +60,18 @@ def create_student_command(name, email, year, program):
     student = create_student(name, email, year, program)
     print(f'Student {student.name} created!')
 
-app.cli.add_command(student_cli)
 
+@student_cli.command("get", help="Get a student by name")
+@click.argument("name")
+def get_student_command(name):
+    students = get_student_by_name(name)
+    if students:
+        for student in students:
+            print(f'Found Student: ID: {student.studentID}, Name: {student.name}, Email: {student.email}, Year: {student.year}, Program: {student.program}')
+    else:
+        print("No students found with that name.")
+
+app.cli.add_command(student_cli)
 
 '''
 Test Commands

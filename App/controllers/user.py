@@ -36,3 +36,6 @@ def create_student(name, email, year, program):
     db.session.add(new_student)
     db.session.commit()
     return new_student   
+
+def get_student_by_name(name):
+    return Student.query.filter(Student.name.like(f"%{name}%")).all()  
