@@ -52,15 +52,13 @@ class Student(db.Model):
 
 class Review(db.Model):
     reviewID = db.Column(db.Integer, primary_key=True)
-    studentID = db.Column(db.Integer, db.ForeignKey('student.studentID'), nullable=False)  
-    userID = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  
+    studentID = db.Column(db.Integer, db.ForeignKey('student.studentID'), nullable=False)   
     date = db.Column(db.Date, nullable=False)
     type = db.Column(db.String(50), nullable=False)  
     comments = db.Column(db.String(500), nullable=True)
 
-    def __init__(self, studentID, userID, date, type, comments=None):
+    def __init__(self, studentID, date, type, comments=None):
         self.studentID = studentID
-        self.userID = userID
         self.date = date
         self.type = type
         self.comments = comments
@@ -69,7 +67,6 @@ class Review(db.Model):
         return {
             'reviewID': self.reviewID,
             'studentID': self.studentID,
-            'userID': self.userID,
             'date': self.date.isoformat(),
             'type': self.type,
             'comments': self.comments

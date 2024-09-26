@@ -5,7 +5,7 @@ from flask.cli import with_appcontext, AppGroup
 from App.database import db, get_migrate
 from App.models import User
 from App.main import create_app
-from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize, create_student, get_student_by_name, get_student_by_id )
+from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize, create_student, get_student_by_name, get_student_by_id, create_review )
 
 
 # This commands file allow you to create convenient CLI commands for testing controllers
@@ -79,6 +79,17 @@ def get_student_by_id_command(student_id):
         print(f'Found Student: ID: {student.studentID}, Name: {student.name}, Email: {student.email}, Year: {student.year}, Program: {student.program}')
     else:
         print(f"No student found with ID: {student_id}.")
+
+@student_cli.command("review", help="Create a review for a student")
+@click.argument("student_id", type=int)
+@click.argument("review_type")
+@click.argument("comments", required=False, default=None)
+def create_review_command(student_id, review_type, comments):
+    review, message = create_review(student_id, review_type, comments)
+    if review:
+        print(f'Review created successfully for Student ID: {student_id}.')
+    else:
+        print(message)
 
 app.cli.add_command(student_cli)
 

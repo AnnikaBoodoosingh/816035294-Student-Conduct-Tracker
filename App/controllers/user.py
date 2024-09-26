@@ -1,5 +1,6 @@
-from App.models import User, Student
+from App.models import User, Student, Review
 from App.database import db
+from datetime import date
 
 def create_user(username, password):
     newuser = User(username=username, password=password)
@@ -42,3 +43,17 @@ def get_student_by_name(name):
 
 def get_student_by_id(student_id):
     return Student.query.get(student_id)
+
+def create_review(studentID, review_type, comments=None):
+    student = Student.query.get(studentID)
+    if not student:
+        return None, "Student not found"
+    
+    review_date = date.today()
+    
+    new_review = Review(studentID=studentID, date=review_date, type=review_type, comments=comments)
+    
+    db.session.add(new_review)
+    db.session.commit()
+    
+    return new_review, "Review created successfully"
