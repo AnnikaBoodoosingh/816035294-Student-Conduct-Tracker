@@ -57,3 +57,11 @@ def create_review(studentID, review_type, comments=None):
     db.session.commit()
     
     return new_review, "Review created successfully"
+
+def get_reviews_for_student(studentID):
+    student = Student.query.get(studentID)
+    if not student:
+        return None, "Student not found"
+    
+    reviews = Review.query.filter_by(studentID=studentID).all()
+    return reviews, "Reviews retrieved successfully"

@@ -5,7 +5,7 @@ from flask.cli import with_appcontext, AppGroup
 from App.database import db, get_migrate
 from App.models import User
 from App.main import create_app
-from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize, create_student, get_student_by_name, get_student_by_id, create_review )
+from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize, create_student, get_student_by_name, get_student_by_id, create_review, get_reviews_for_student )
 
 
 # This commands file allow you to create convenient CLI commands for testing controllers
@@ -90,6 +90,18 @@ def create_review_command(student_id, review_type, comments):
         print(f'Review created successfully for Student ID: {student_id}.')
     else:
         print(message)
+
+
+@student_cli.command("reviews", help="View reviews for a student")
+@click.argument("student_id", type=int)
+def view_reviews_command(student_id):
+    reviews, message = get_reviews_for_student(student_id)
+    if reviews is None:
+        print(message)
+    else:
+        for review in reviews:
+            print(f'Review ID: {review.reviewID}, Type: {review.type}, Comments: {review.comments}, Date: {review.date.isoformat()}')
+
 
 app.cli.add_command(student_cli)
 
