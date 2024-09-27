@@ -86,6 +86,20 @@ Then execute the command invoking with flask cli with command name and the relev
 $ flask user create bob bobpass
 ```
 
+# CLI Commands
+# Add Student
+
+To add a new student to the database
+
+```bash
+$ flask student create name email year program
+```
+
+Example
+
+```bash
+$ flask student create John Doe john@email.com Second Computer SCience
+```
 
 # Running the Project
 
