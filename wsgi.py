@@ -96,8 +96,8 @@ def create_review_command(student_id, review_type, comments):
 @click.argument("student_id", type=int)
 def view_reviews_command(student_id):
     reviews, message = get_reviews_for_student(student_id)
-    if reviews is None:
-        print(message)
+    if not reviews:
+        print(f"No reviews found for student with ID {student_id}.")
     else:
         for review in reviews:
             print(f'Review ID: {review.reviewID}, Type: {review.type}, Comments: {review.comments}, Date: {review.date.isoformat()}')
