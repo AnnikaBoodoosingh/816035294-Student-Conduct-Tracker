@@ -98,8 +98,63 @@ $ flask student create name email year program
 Example
 
 ```bash
-$ flask student create John Doe john@email.com Second Computer SCience
+$ flask student create John Doe john@email.com Second Computer Science
 ```
+
+# Search Student by name
+
+To search for a student by name
+
+```bash
+$ flask student get name
+```
+
+Example
+
+```bash
+$ flask student get John Doe
+```
+
+# Search Student by ID
+
+To search for a student by ID
+
+```bash
+$ flask student get_by_id student_id
+```
+
+Example
+
+```bash
+$ flask student get_by_id 1
+```
+# Review Student
+
+To review a student 
+
+```bash
+$ flask student review student_id review_type comments
+```
+
+Example
+
+```bash
+$ flask student review 1 positive good effort
+```
+# View Student Reviews
+
+To view all reviews for a specific student
+
+```bash
+$ flask student reviews student_id
+```
+
+Example
+
+```bash
+$ flask student reviews 1
+```
+
 
 # Running the Project
 
